@@ -1,0 +1,1 @@
+INSERT INTO employees (username, password, role) VALUES ('mslim', 'mslim123', 'EMPLOYEE');

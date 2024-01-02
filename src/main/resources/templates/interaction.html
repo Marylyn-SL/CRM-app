@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Interaction Form</title>
+</head>
+<body>
+
+<section>
+    <h1>Interaction Details</h1>
+
+    <form method="post" th:object="${interactionObj}" th:action="@{/interaction}">
+
+        <label>Reason: </label><input type="text" th:field="*{reason}"><br>
+        <label>Completed: </label>
+        <select th:field="*{completed}">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select><br>
+        <label>Date: </label><input type="date" th:field="*{date}"><br>
+
+        <label>Customer name: </label><input type="text" th:field="*{customer.name}"><br>
+        <label>Customer email: </label><input type="text" th:field="*{customer.email}"><br>
+
+        <label>Employee username: </label><input type="text" th:field="*{employee.username}"><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</section>
+</body>
+</html>
