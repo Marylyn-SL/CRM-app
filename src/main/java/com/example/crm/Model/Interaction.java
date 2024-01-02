@@ -37,13 +37,5 @@ public class Interaction {
     @JoinColumn(name = "employeeID")
     private Employee employee;
 
-    public Interaction(String reason){
-        this.completed = true;
-        this.date = new Date();
-        //TODO: the below should come from the request
-        this.customer = new Customer();
-        this.employee = new Employee();
-    }
-
     public String getReason() { return this.reason; }
 }

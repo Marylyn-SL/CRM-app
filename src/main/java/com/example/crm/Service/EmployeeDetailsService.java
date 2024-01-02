@@ -20,6 +20,8 @@ public class EmployeeDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Employee employee = employeeRepository.findByUsername(username);
         if(employee != null) {
+            String userName = employee.getUsername();
+            String password = employee.getPassword();
             return new org.springframework.security.core.userdetails.User(
                 employee.getUsername(), employee.getPassword(), mapRolesToAuthorities(employee.getRole())
             );
