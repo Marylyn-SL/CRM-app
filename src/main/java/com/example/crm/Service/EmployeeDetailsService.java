@@ -32,8 +32,7 @@ public class EmployeeDetailsService implements UserDetailsService {
     }
     private Collection<? extends GrantedAuthority> mapRolesToAuthorities(String role) {
         Collection<String> roles = new ArrayList<>();
-        roles.add(role);
-        Collection<? extends GrantedAuthority> mapRoles = roles.stream().map(r -> new SimpleGrantedAuthority(r)).collect(Collectors.toList());
-        return mapRoles;
+        roles.add("ROLE_" + role);
+        return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 }

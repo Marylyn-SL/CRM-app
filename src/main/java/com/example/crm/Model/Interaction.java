@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -15,6 +17,13 @@ import java.util.Date;
 @Entity
 @Table(name = "interactions", schema = "public")
 public class Interaction {
+    public String getReason() {
+        return reason;
+    }
+
+    public Boolean getCompleted() {
+        return completed;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,15 +36,16 @@ public class Interaction {
     private Boolean completed;
 
     @Column
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date date;
 
     @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name = "customerID")
     private Customer customer;
 
     @ManyToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     @JoinColumn(name = "employeeID")
     private Employee employee;
-
-    public String getReason() { return this.reason; }
 }

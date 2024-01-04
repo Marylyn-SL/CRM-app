@@ -41,4 +41,8 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     private Set<Interaction> interactions;
+
+    public String getEmail() {
+        return email;
+    }
 }

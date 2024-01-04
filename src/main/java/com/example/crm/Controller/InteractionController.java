@@ -1,6 +1,7 @@
 package com.example.crm.Controller;
 
 import com.example.crm.Model.Interaction;
+import com.example.crm.Service.MessageService;
 import com.example.crm.Repository.InteractionRepository;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,24 +10,35 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Date;
 
 @Controller
-//@RequestMapping("/api")
 public class InteractionController {
     @Autowired
     private InteractionRepository interactionRepository;
+    @Autowired
+    private MessageService messageService;
 
     @GetMapping("/interaction")
-    public String getAllInteractions(Model model){
+    public String getAllInteractions(Model model, Interaction interaction){
         List<Interaction> interactions = interactionRepository.findAll();
-        model.addAttribute("interaction", interactions);
+        model.addAttribute("interactions", interactions);
         return "interaction";
     }
 
     @PostMapping("/interaction")
-    public String createInteraction(@ModelAttribute Interaction interaction, Model model){
-        model.addAttribute("interaction", interaction);
+    public String createInteraction(Model model, @ModelAttribute Interaction interaction) {
         interactionRepository.save(interaction);
-        return "result";
+        List<Interaction> interactions = interactionRepository.findAll();
+        model.addAttribute("interactions", interactions);
+        return "interaction";
     }
+
+//    @PostMapping("/send-messages")
+//    public String sendMessagesToSelectedCustomers(@RequestParam List<Long> customerIds,
+//                                                 @RequestParam String message) {
+//        messageService.sendMessagesToCustomers(customerIds, message);
+//
+//        return "redirect:/interaction";
+//    }
 }

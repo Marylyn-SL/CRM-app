@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Customer</title>
+</head>
+
+<body>
+<div class="container">
+    <h2>Add Customer</h2>
+
+    <form method="post" th:action="@{/customer}" th:object="${customer}">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" required>
+        </div>
+        <div class="mb-3">
+            <label for="isCustomer" class="form-label">Is Customer:</label>
+            <select class="form-select" id="isCustomer" th:field="*{isCustomer}" required>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="isCustomerDate" class="form-label">Customer Since:</label>
+            <input type="date" class="form-control" id="isCustomerDate" th:field="*{isCustomerDate}" th:pattern="${#dates.format(customer.isCustomerDate, 'yyyy-MM-dd')}" required>
+        </div>
+        <div class="mb-3">
+            <label for="lastContact" class="form-label">Last Contact:</label>
+            <input type="date" class="form-control" id="lastContact" th:field="*{lastContact}" th:pattern="${#dates.format(customer.isCustomerDate, 'yyyy-MM-dd')}" required>
+        </div>
+        <div class="mb-3">
+            <label for="stopDate" class="form-label">Stopped Being a Customer Since:</label>
+            <input type="date" class="form-control" id="stopDate" th:field="*{stopDate}" th:pattern="${#dates.format(customer.isCustomerDate, 'yyyy-MM-dd')}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Customer</button>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Is Customer</th>
+            <th scope="col">Customer Since</th>
+            <th scope="col">Last Contact</th>
+            <th scope="col">Stopped Since</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.id}"></td>
+            <td th:text="${customer.name}"></td>
+            <td th:text="${customer.email}"></td>
+            <td th:text="${customer.isCustomer}"></td>
+            <td th:text="${customer.isCustomerDate}"></td>
+            <td th:text="${customer.lastContact}"></td>
+            <td th:text="${customer.stopDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

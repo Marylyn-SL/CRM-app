@@ -12,42 +12,70 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import com.example.crm.Service.EmployeeDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    @Bean
-//    public static PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public static PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/index").permitAll()
-//                        .requestMatchers("/interaction/**").hasRole("EMPLOYEE")
-                        .requestMatchers("/interaction/**").permitAll()
+                        .requestMatchers("/interaction/**").hasRole("EMPLOYEE")
+                        .requestMatchers("/customer/**").hasRole("EMPLOYEE")
+                        .anyRequest().authenticated()
                 )
-                .formLogin(form -> form.loginPage("/login")
+                .formLogin(form -> form
+                        .loginPage("/login")
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/index")
                         .permitAll()
                 )
-                .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll());
+                .logout(logout -> logout
+//                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll());
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/index")
+                        .invalidateHttpSession(true)
+                        .permitAll()
+                );
 
         return http.build();
     }
+
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
+    public UserDetailsService inMemoryUserDetailsService() {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        UserDetails user = User.builder()
+                .username("user")
+                .password(passwordEncoder.encode("password"))
+                .roles("EMPLOYEE")
+                .build();
 
         return new InMemoryUserDetailsManager(user);
     }
+
+//    @Bean
+//    public UserDetailsService inMemoryUserDetailsService() {
+//        UserDetails user =
+//                User.withDefaultPasswordEncoder()
+//                        .username("user")
+//                        .password("password")
+//                        .roles("USER")
+//                        .build();
+//
+//        return new InMemoryUserDetailsManager(user);
+//    }
+
+//    @Bean
+//    public UserDetailsService userDetailsService(EmployeeDetailsService employeeDetailsService) {
+//        return employeeDetailsService;
+//    }
 }

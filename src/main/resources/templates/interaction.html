@@ -1,32 +1,61 @@
 <!DOCTYPE html>
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Interaction Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous">
 </head>
+
 <body>
 
-<section>
+<div>
     <h1>Interaction Details</h1>
 
     <form method="post" th:object="${interaction}" th:action="@{/interaction}">
 
-<!--        <label>Reason: </label><input type="text" th:field="*{reason}"><br>-->
-<!--        <label>Completed: </label>-->
-<!--        <select th:field="*{completed}">-->
-<!--            <option value="true">Yes</option>-->
-<!--            <option value="false">No</option>-->
-<!--        </select><br>-->
-<!--        <label>Date: </label><input type="date" th:field="*{date}"><br>-->
+        <label>Reason: </label><input type="text" th:field="*{reason}"><br>
+        <label>Completed: </label>
+        <select th:field="*{completed}">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select><br>
+        <label>Date: </label><input type="date" th:field="*{date}"><br>
 
-<!--        <label>Customer name: </label><input type="text" th:field="*{customer.name}"><br>-->
-<!--        <label>Customer email: </label><input type="text" th:field="*{customer.email}"><br>-->
+        <label>Customer name: </label><input type="text" th:field="*{customer.name}"><br>
+        <label>Customer email: </label><input type="text" th:field="*{customer.email}"><br>
 
-<!--        <label>Employee username: </label><input type="text" th:field="*{employee.username}"><br>-->
+        <label>Employee username: </label><input type="text" th:field="*{employee.username}"><br>
 
         <button type="submit">Submit</button>
     </form>
-</section>
+
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Reason</th>
+            <th scope="col">Completed</th>
+            <th scope="col">Date</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Customer Email</th>
+            <th scope="col">Employee Username</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="interaction, iterator: ${interactions}">
+            <td th:text="${iterator.index + 1}"/>
+            <td th:text="${interaction.reason}"/>
+            <td th:text="${interaction.completed}"/>
+            <td th:text="${#dates.format(interaction.date, 'yyyy-MM-dd')}"/>
+            <td th:text="${interaction.customer.name}"/>
+            <td th:text="${interaction.customer.email}"/>
+            <td th:text="${interaction.employee.username}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>
