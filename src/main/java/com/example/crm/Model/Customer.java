@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.Set;
@@ -31,12 +32,15 @@ public class Customer {
     private Boolean isCustomer;
 
     @Column
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date isCustomerDate;
 
     @Column
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date lastContact;
 
     @Column
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date stopDate;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)

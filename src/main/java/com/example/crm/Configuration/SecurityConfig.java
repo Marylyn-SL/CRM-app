@@ -11,8 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import com.example.crm.Service.EmployeeDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -30,6 +28,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/index").permitAll()
                         .requestMatchers("/interaction/**").hasRole("EMPLOYEE")
                         .requestMatchers("/customer/**").hasRole("EMPLOYEE")
+                        .requestMatchers("/report/**").hasRole("EMPLOYEE")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -61,21 +60,4 @@ public class SecurityConfig {
 
         return new InMemoryUserDetailsManager(user);
     }
-
-//    @Bean
-//    public UserDetailsService inMemoryUserDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("password")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
-
-//    @Bean
-//    public UserDetailsService userDetailsService(EmployeeDetailsService employeeDetailsService) {
-//        return employeeDetailsService;
-//    }
 }
