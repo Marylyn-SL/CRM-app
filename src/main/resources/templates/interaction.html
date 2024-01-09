@@ -35,19 +35,16 @@
             <input type="date" class="form-control" id="date" th:field="*{date}" required>
         </div>
         <div class="mb-3">
-            <label for="name" class="form-label">Customer name: </label>
-            <input type="text" class="form-control" id="name" th:field="*{customer.name}" required>
-        </div>
-        <div class="mb-3">
             <label for="email" class="form-label">Customer email: </label>
-            <input type="email" class="form-control" id="email" th:field="*{customer.email}" required>
+            <input type="email" class="form-control" id="email" name="customerEmail" required>
         </div>
         <div class="mb-3">
             <label for="username" class="form-label">Employee username: </label>
-            <input type="text" class="form-control" id="username" th:field="*{employee.username}" required>
+            <input type="text" class="form-control" id="username" name="employeeUsername" required>
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div th:if="${error}" th:text="${error}"></div>
     </form>
 
     <table class="table table-dark">
@@ -57,7 +54,6 @@
             <th scope="col">Reason</th>
             <th scope="col">Completed</th>
             <th scope="col">Date</th>
-            <th scope="col">Customer Name</th>
             <th scope="col">Customer Email</th>
             <th scope="col">Employee Username</th>
         </tr>
@@ -68,9 +64,8 @@
             <td th:text="${interaction.reason}"/>
             <td th:text="${interaction.completed}"/>
             <td th:text="${#dates.format(interaction.date, 'yyyy-MM-dd')}"/>
-            <td th:text="${interaction.customer.name}"/>
-            <td th:text="${interaction.customer.email}"/>
-            <td th:text="${interaction.employee.username}"/>
+            <td th:text="${customerEmail}"/>
+            <td th:text="${employeeUsername}"/>
         </tr>
         </tbody>
     </table>

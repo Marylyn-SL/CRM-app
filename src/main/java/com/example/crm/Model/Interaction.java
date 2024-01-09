@@ -39,13 +39,22 @@ public class Interaction {
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date date;
 
-    @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "customerID")
-    private Customer customer;
+    @Column
+    private Long customerid;
 
-    @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "employeeID")
-    private Employee employee;
+    @Column
+    private Long employeeid;
+
+    public void setCustomerid(Long id){customerid = id;}
+    public void setEmployeeid(Long id){employeeid = id;}
+
+//    @ManyToOne
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+//    @JoinColumn(name = "customerID")
+//    private Customer customer;
+//
+//    @ManyToOne
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+//    @JoinColumn(name = "employeeID")
+//    private Employee employee;
 }

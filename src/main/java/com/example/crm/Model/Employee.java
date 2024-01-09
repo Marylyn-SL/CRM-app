@@ -30,10 +30,11 @@ public class Employee {
     @Column(length = 100)
     private final String role = "EMPLOYEE";
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-    private Set<Interaction> interactions;
+//    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+//    private Set<Interaction> interactions;
 
     public String getUsername() {return this.username;}
     public String getPassword() {return this.password;}
     public String getRole() {return this.role;}
+    public Long getId(){return id;}
 }

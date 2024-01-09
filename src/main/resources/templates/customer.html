@@ -36,11 +36,11 @@
         </div>
         <div class="mb-3">
             <label for="isCustomerDate" class="form-label">Customer Since:</label>
-            <input type="date" class="form-control" id="isCustomerDate" th:field="*{isCustomerDate}" required>
+            <input type="date" class="form-control" id="isCustomerDate" th:field="*{isCustomerDate}">
         </div>
         <div class="mb-3">
             <label for="lastContact" class="form-label">Last Contact:</label>
-            <input type="date" class="form-control" id="lastContact" th:field="*{lastContact}" required>
+            <input type="date" class="form-control" id="lastContact" th:field="*{lastContact}">
         </div>
         <div class="mb-3">
             <label for="stopDate" class="form-label">Stopped Being a Customer Since:</label>
@@ -56,6 +56,7 @@
     <table class="table table-dark">
         <thead>
         <tr>
+            <th>#</th>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>

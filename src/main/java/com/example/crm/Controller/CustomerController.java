@@ -28,14 +28,15 @@ public class CustomerController {
     @PostMapping("/customer")
     public String addCustomer(Model model, @ModelAttribute Customer customer) {
         customerRepository.save(customer);
-        List<Customer> customers = customerRepository.findAll();
-        return "customer";
+//        List<Customer> customers = customerRepository.findAll();
+        return "redirect:/customer";
     }
 
     @PostMapping("/send-email-to-selection")
     public String sendEmailToSelection(@RequestParam(value = "selectedEmails", required = false) List<String> selectedEmails) {
         String subject = "Check up!";
-        String text = "Hello There!";
+        String text = "Good morning, this message is intended to collect reviews regarding our product/service. Kindly reply directly to this email." +
+                "If you're not already a customer, you can ask for more details.";
         if(selectedEmails != null){
             selectedEmails.forEach(str -> sendMessage(str, subject, text));
         }
@@ -50,16 +51,4 @@ public class CustomerController {
         message.setText(text);
         emailSender.send(message);
     }
-
-//    @GetMapping("/inactive-customers")
-//    public String getInactiveCustomers(Model model) {
-//        Date sixMonthsAgo = null;
-//
-//        if (sixMonthsAgo != null) {
-//            List<Interaction> inactiveCustomers = interactionRepository.findByCustomer_IsCustomerTrueAndDateBeforeAndCompletedIsTrue(sixMonthsAgo);
-//            model.addAttribute("inactiveCustomers", inactiveCustomers);
-//        }
-//
-//        return "inactiveCustomers";
-//    }
 }
