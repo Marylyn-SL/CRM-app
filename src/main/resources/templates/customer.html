@@ -82,6 +82,17 @@
         </tbody>
     </table>
         <button type="submit" class="btn btn-primary">Send email to selection</button>
+        <div class="mb-3">
+            <label for="email-subject" class="form-label">Subject:</label>
+            <input type="text" value="Check up!" class="form-control" id="email-subject" th:name="emailSubject" required>
+        </div>
+        <div class="mb-3">
+            <label for="email-body" class="form-label">Text:</label>
+            <textarea class="form-control" id="email-body" th:name="emailBody" rows="8" cols="60">
+            Good morning, this message is intended to collect reviews regarding our product/service. Kindly reply directly to this email.
+            If you're not already a customer, you can ask for more details.
+            </textarea>
+        </div>
     </form>
 </div>
 

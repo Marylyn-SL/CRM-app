@@ -64,8 +64,8 @@
             <td th:text="${interaction.reason}"/>
             <td th:text="${interaction.completed}"/>
             <td th:text="${#dates.format(interaction.date, 'yyyy-MM-dd')}"/>
-            <td th:text="${customerEmail}"/>
-            <td th:text="${employeeUsername}"/>
+            <td th:text="${interaction.customer.email}"/>
+            <td th:text="${interaction.employee.username}"/>
         </tr>
         </tbody>
     </table>

@@ -20,7 +20,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long customerid;
 
     @Column(length = 100)
     private String name;
@@ -43,11 +43,11 @@ public class Customer {
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     private Date stopDate;
 
-//    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-//    private Set<Interaction> interactions;
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private Set<Interaction> interactions;
 
     public String getEmail() {
         return email;
     }
-    public Long getId(){return id;}
+    public Long getId(){return customerid;}
 }

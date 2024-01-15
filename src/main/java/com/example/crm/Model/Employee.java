@@ -19,7 +19,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long employeeid;
 
     @Column(length = 20)
     private String username;
@@ -30,11 +30,11 @@ public class Employee {
     @Column(length = 100)
     private final String role = "EMPLOYEE";
 
-//    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
-//    private Set<Interaction> interactions;
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    private Set<Interaction> interactions;
 
     public String getUsername() {return this.username;}
     public String getPassword() {return this.password;}
     public String getRole() {return this.role;}
-    public Long getId(){return id;}
+    public Long getId(){return employeeid;}
 }

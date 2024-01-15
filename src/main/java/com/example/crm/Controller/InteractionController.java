@@ -28,7 +28,6 @@ public class InteractionController {
         model.addAttribute("interactions", interactions);
         return "interaction";
     }
-
     @PostMapping("/interaction")
     public String createInteraction(@RequestParam String customerEmail,
                                     @RequestParam String employeeUsername,
@@ -39,16 +38,12 @@ public class InteractionController {
             model.addAttribute("error", "Employee or Customer do not exist.");
             return "interaction";
         }
-        Long customerId = customer.getId();
-        Long employeeId = employee.getId();
-        interaction.setCustomerid(customerId);
-        interaction.setEmployeeid(employeeId);
+        interaction.setCustomer(customer);
+        interaction.setEmployee(employee);
 
         interactionRepository.save(interaction);
         List<Interaction> interactions = interactionRepository.findAll();
         model.addAttribute("interactions", interactions);
-        model.addAttribute("customerEmail", customerEmail);
-        model.addAttribute("employeeUsername", employeeUsername);
         return "redirect:/interaction";
     }
 }

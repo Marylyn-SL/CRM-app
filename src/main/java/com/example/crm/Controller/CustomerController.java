@@ -28,19 +28,17 @@ public class CustomerController {
     @PostMapping("/customer")
     public String addCustomer(Model model, @ModelAttribute Customer customer) {
         customerRepository.save(customer);
-//        List<Customer> customers = customerRepository.findAll();
         return "redirect:/customer";
     }
 
     @PostMapping("/send-email-to-selection")
-    public String sendEmailToSelection(@RequestParam(value = "selectedEmails", required = false) List<String> selectedEmails) {
-        String subject = "Check up!";
-        String text = "Good morning, this message is intended to collect reviews regarding our product/service. Kindly reply directly to this email." +
-                "If you're not already a customer, you can ask for more details.";
-        if(selectedEmails != null){
-            selectedEmails.forEach(str -> sendMessage(str, subject, text));
+    public String sendEmailToSelection(@RequestParam(value = "selectedEmails", required = false) List<String> selectedEmails,
+                                       @RequestParam(value = "emailSubject", required = false) String emailSubject,
+                                       @RequestParam(value = "emailBody", required = false) String emailBody) {
+        if(selectedEmails != null && emailSubject != null && emailBody != null){
+            selectedEmails.forEach(str -> sendMessage(str, emailSubject, emailBody));
         }
-        return "customer";
+        return "redirect:/customer";
     }
 
     private void sendMessage(String email, String subject, String text){
