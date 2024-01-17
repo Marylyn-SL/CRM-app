@@ -31,6 +31,21 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
+    @GetMapping("/not-customer")
+    public String getNotCustomers(
+            @RequestParam(value = "isNotCustomer", defaultValue = "false") boolean isNotCustomer,
+            Model model, Customer customer) {
+        List<Customer> customers;
+        if(isNotCustomer){
+            customers = customerRepository.findByIsCustomer(false);
+        }else{
+            customers = customerRepository.findAll();
+        }
+        model.addAttribute("customers", customers);
+        model.addAttribute("isNotCustomer", isNotCustomer);
+        return "customer";
+    }
+
     @PostMapping("/send-email-to-selection")
     public String sendEmailToSelection(@RequestParam(value = "selectedEmails", required = false) List<String> selectedEmails,
                                        @RequestParam(value = "emailSubject", required = false) String emailSubject,
